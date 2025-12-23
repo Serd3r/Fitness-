@@ -1,89 +1,89 @@
-# Fitness Rezervasyon Sistemi - Uçtan Uca Test Mühendisliği Projesi
+# Fitness Booking System - End-to-End Test Engineering Project
 
-Bu proje, "Yazılım Test Mühendisliği" dersi dönem projesi kapsamında geliştirilmiştir. FastAPI tabanlı bir REST servisidir ve TDD, Property-Based Testing, Mutasyon Testi ve Performans Testi gibi ileri düzey test tekniklerini içerir.
+This project was developed as a term project for the "Software Test Engineering" course. It is a FastAPI-based REST service that demonstrates advanced test engineering concepts, including TDD, Property-Based Testing, Mutation Testing, and Performance Testing.
 
-## 📁 Proje Dosya Yapısı ve Görevleri
+## 📁 Project Structure & Deliverables
 
-Aşağıda proje içerisindeki dosyaların amaçları ve ödev gereksinimlerini nasıl karşıladığı açıklanmıştır:
+Below is the explanation of the project files and how they satisfy the assignment requirements:
 
-### 1. Kök Dizin
-*   **`README.md`**: Projenin kullanım kılavuzu ve proje özeti (Ödev Madde 6.1).
-*   **`pyproject.toml`**: Proje bağımlılıklarını (FastAPI, pytest, locust vb.) ve test konfigürasyonlarını içerir (Ödev Madde 3).
-*   **`Dockerfile`**: Uygulamanın konteynerize edilmesini sağlar (Ödev Madde 5.11).
-*   **`docker-compose.yml`**: Proje ve bağımlılıklarını tek komutla çalıştırmak için kullanılır (Ödev Madde 5.11).
-*   **`REPORT_DRAFT.md`**: Proje rapor taslağı; mimari ve test stratejilerini içerir (Ödev Madde 6.2).
+### 1. Root Directory
+*   **`README.md`**: User manual and project summary (Assignment Item 6.1).
+*   **`pyproject.toml`**: Contains project configuration and dependencies (FastAPI, pytest, locust, etc.) (Assignment Item 3).
+*   **`Dockerfile`**: Used to containerize the application (Assignment Item 5.11).
+*   **`docker-compose.yml`**: Service definition to run the project with a single command (Assignment Item 5.11).
+*   **`REPORT_DRAFT.md`**: Draft of the project report, summarizing architecture and test strategies (Assignment Item 6.2).
 
-### 2. Uygulama Kodu (`app/`)
-Kaynak kodların bulunduğu ana dizindir.
-*   **`app/main.py`**: Uygulamanın giriş noktasıdır. Router'ları bağlar, Statik Dosyaları (Frontend) ve CORS ayarlarını yapar.
-*   **`app/models/`**: Veri modellerini (Pydantic şemaları) içerir.
-    *   `member.py`: Üye tipleri (Standart, Premium, Öğrenci) ve validasyonları.
-    *   `fitness_class.py`: Ders bilgileri.
-    *   `reservation.py`: Rezervasyon şeması.
-*   **`app/routers/`**: REST API uç noktaları (Endpoints) (Ödev Madde 4).
-    *   `members.py`, `classes.py`, `reservations.py`: İlgili kaynaklar için CRUD işlemleri.
-*   **`app/services/`**: İş mantığı katmanı.
-    *   **`pricing_engine.py`**: Dinamik fiyatlandırma kuralları (Doluluk oranı, üyelik tipi vb.) (Ödev Madde 4.4 & 5.5).
-    *   `reservation_service.py`: Kapasite kontrolü ve rezervasyon kaydı.
+### 2. Application Code (`app/`)
+The main source code directory.
+*   **`app/main.py`**: Entry point of the application. Connects routers, configures Static Files (Frontend), and CORS settings.
+*   **`app/models/`**: Data models (Pydantic schemas).
+    *   `member.py`: Member types (Standard, Premium, Student) and validation.
+    *   `fitness_class.py`: Class details.
+    *   `reservation.py`: Reservation schema.
+*   **`app/routers/`**: REST API Endpoints (Assignment Item 4).
+    *   `members.py`, `classes.py`, `reservations.py`: CRUD operations for the respective resources.
+*   **`app/services/`**: Business Logic Layer.
+    *   **`pricing_engine.py`**: Dynamic pricing rules (Occupancy rate, user type etc.) (Assignment Item 4.4 & 5.5).
+    *   `reservation_service.py`: Capacity control and booking logic.
 
-### 3. Ön Yüz (`app/static/`)
-*   **`index.html`**: Sistemin kullanıcı arayüzü. Üye kaydı, ders listeleme ve rezervasyon işlemlerini görsel olarak sunar.
+### 3. Frontend (`app/static/`)
+*   **`index.html`**: User Interface for the system. Allows members creation, class listing, and booking via a browser.
 
-### 4. Testler (`tests/`)
-Ödevin odak noktası olan test senaryoları buradadır (Ödev Madde 5).
-*   **`tests/unit/`**: Birim testler (Ödev Madde 5.2).
-    *   `test_pricing.py`: Fiyatlandırma motorunun testleri.
-    *   `test_reservations.py`: Rezervasyon kurallarının testleri.
-*   **`tests/property/`**: Özellik tabanlı (Property-Based) testler. `Hypothesis` kütüphanesi ile rastgele girdilerle "invariant"ların korunup korunmadığını test eder (Ödev Madde 5.6).
-*   **`tests/integration/`**: Entegrasyon testleri.
-    *   `postman_collection.json`: Postman/Newman ile çalıştırılabilir API test koleksiyonu (Ödev Madde 5.4).
-*   **`tests/performance/`**: Yük ve Stres testleri.
-    *   `locustfile.py`: `Locust` aracı ile sisteme yük bindiren senaryo (Ödev Madde 5.7).
+### 4. Tests (`tests/`)
+The core of the assignment, containing all test scenarios (Assignment Item 5).
+*   **`tests/unit/`**: Unit tests (Assignment Item 5.2).
+    *   `test_pricing.py`: Tests for the pricing engine.
+    *   `test_reservations.py`: Tests for reservation rules.
+*   **`tests/property/`**: Property-Based tests. Uses `Hypothesis` to test system invariants with random data (Assignment Item 5.6).
+*   **`tests/integration/`**: Integration tests.
+    *   `postman_collection.json`: API test collection executable via Postman/Newman (Assignment Item 5.4).
+*   **`tests/performance/`**: Load and Stress tests.
+    *   `locustfile.py`: Load test scenario using `Locust` (Assignment Item 5.7).
 
 ### 5. CI/CD (`.github/workflows/`)
-*   **`ci.yml`**: GitHub Actions konfigürasyonu. Her `push` işleminde testleri, lint kontrollerini ve raporlamayı otomatik yapar (Ödev Madde 5.11).
+*   **`ci.yml`**: GitHub Actions configuration. Automatically runs tests, linting, and reporting on every push (Assignment Item 5.11).
 
 ---
 
-## 🚀 Kurulum ve Çalıştırma
+## 🚀 Installation & Running
 
-### Yöntem 1: Docker (Önerilen)
-Sistemi tek komutla ayağa kaldırmak için:
+### Method 1: Docker (Recommended)
+To run the system with a single command:
 ```bash
 docker-compose up --build
 ```
-*   **Web Arayüzü**: [http://127.0.0.1:8000/static/index.html](http://127.0.0.1:8000/static/index.html)
-*   **API Dokümantasyonu**: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+*   **Web Interface**: [http://127.0.0.1:8000/static/index.html](http://127.0.0.1:8000/static/index.html)
+*   **API Docs**: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
 
-### Yöntem 2: Lokal Kurulum (Python)
-Gereksinimler: Python 3.9+
-1. **Bağımlılıkları Yükle**:
+### Method 2: Local Setup (Python)
+Requirements: Python 3.9+
+1. **Install Dependencies**:
    ```bash
    pip install -e ".[test]"
    ```
-2. **Uygulamayı Başlat**:
+2. **Start the Application**:
    ```bash
    uvicorn app.main:app --reload
    ```
 
 ---
 
-## 🧪 Testleri Çalıştırma
-Tüm test mühendisliği araçlarını aşağıdaki komutlarla çalıştırabilirsiniz:
+## 🧪 Running Tests
+You can execute all test engineering tools using the commands below:
 
-1.  **Birim Testler ve Coverage (Kapsam)**:
+1.  **Unit Tests & Coverage**:
     ```bash
     pytest --cov=app
     ```
-    *(Beklenen kapsam: >%80)*
+    *(Target Coverage: >80%)*
 
-2.  **Performans Testi (Locust)**:
+2.  **Performance Test (Locust)**:
     ```bash
     locust -f tests/performance/locustfile.py
     ```
-    *Tarayıcıdan http://localhost:8089 adresine giderek testi başlatın.*
+    *Open http://localhost:8089 in your browser to start the test.*
 
-3.  **Mutasyon Testi (Mutmut)**:
+3.  **Mutation Test (Mutmut)**:
     ```bash
     mutmut run
     mutmut results
