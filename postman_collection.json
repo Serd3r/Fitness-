@@ -1,0 +1,56 @@
+{
+    "info": {
+        "_postman_id": "12345-67890",
+        "name": "Fitness Booking API",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Create Member",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\"name\": \"Test User\", \"email\": \"test@user.com\", \"membership_type\": \"standard\"}"
+                },
+                "url": {
+                    "raw": "http://localhost:8000/members/",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8000",
+                    "path": [
+                        "members",
+                        ""
+                    ]
+                }
+            }
+        },
+        {
+            "name": "List Classes",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "http://localhost:8000/classes/",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8000",
+                    "path": [
+                        "classes",
+                        ""
+                    ]
+                }
+            }
+        }
+    ]
+}

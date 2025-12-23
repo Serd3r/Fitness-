@@ -1,0 +1,42 @@
+[project]
+name = "fitness-booking-system"
+version = "0.1.0"
+description = "A simple REST-based service for fitness class bookings with dynamic pricing."
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "fastapi>=0.109.0",
+    "uvicorn>=0.27.0",
+    "pydantic>=2.6.0",
+    "email-validator>=2.1.0"
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=8.0.0",
+    "pytest-cov>=4.1.0",
+    "hypothesis>=6.97.0",
+    "mutmut>=2.4.4",
+    "locust>=2.23.0",
+    "httpx>=0.26.0",
+    "requests>=2.31.0"
+]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q --cov=app"
+testpaths = [
+    "tests",
+]
+python_files = "test_*.py"
+python_classes = "Test*"
+python_functions = "test_*"
+
+[tool.mutmut]
+paths_to_mutate = "app/"
+runner = "pytest"
+tests_dir = "tests/"
